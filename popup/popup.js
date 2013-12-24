@@ -10,7 +10,8 @@ Page.prototype.load = function(){
   $(".loading").show();
   $(".image").hide().each(function(){
     var image = $(this);
-    $.getJSON("http://www.lgtm.in/g?" + Math.random(), function (data) {
+    var url = (localStorage["lgtmurl"] ? localStorage["lgtmurl"] : "http://www.lgtm.in" ) + "/g?"
+    $.getJSON(url + Math.random(), function (data) {
       image.attr("src", data.imageUrl);
       image.unbind().click(function(){
         chrome.tabs.sendMessage(tabId, {image: "![LGTM](" + image.attr("src") + ")"}, function(response){});
